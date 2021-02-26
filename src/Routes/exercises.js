@@ -85,6 +85,28 @@ router.post('/', (req, res) => { // Petición POST para guardar la información 
         }
     })
 })
+
+router.put('/:Exercisesid', (req, res) => {
+    setTimeout(async () => {
+        try {
+            const {Title, Description, Img, LeftColor, RightColor} = req.body
+            const {Exercisesid} = req.params
+            const result = await sqlConnection.executeStoredProcedure('exercisesAddOrEdit', null, { // Ejecutamos en este caso una "Procedure" ja creada anteriormente para actualizar lo que ya esta creado o para isnertar algo nuevo
+                    _id: Exercisesid,
+                    _title: Title,
+                    _description: Description,
+                    _img: Img,
+                    _leftColor: LeftColor,
+                    _rightColor: RightColor
+                })
+            res.json({Status: 'Exercise Updated'})
+        } catch (err){
+            console.log('An error was ocurred /PUT:id') // Manda por consola el mensaje de error
+            console.log(err) // Manda por consola el mensaje de error detallado
+        }
+    })
+})
+
 /*router.get('/', (req, res) => {
     mysqlConnection.query('SELECT * FROM exercises', (err, rows, fields) => {
         if(!err) {
