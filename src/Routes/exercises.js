@@ -107,6 +107,23 @@ router.put('/:Exercisesid', (req, res) => {
     })
 })
 
+router.delete('/:Exercisesid', (req, res) => {
+    setTimeout(async () => {
+        try {
+            const {Exercisesid} = req.params
+            const query = `
+            DELETE FROM dbo.exercises WHERE Exercisesid = ${Exercisesid} 
+            `
+
+            const result = await sqlConnection.executeQuery(query)
+            res.json({Status: 'Exercise Updated'})
+        } catch (err){
+            console.log('An error was ocurred /DELETE:id') // Manda por consola el mensaje de error
+            console.log(err) // Manda por consola el mensaje de error detallado
+        }
+    })
+})
+
 /*router.get('/', (req, res) => {
     mysqlConnection.query('SELECT * FROM exercises', (err, rows, fields) => {
         if(!err) {
