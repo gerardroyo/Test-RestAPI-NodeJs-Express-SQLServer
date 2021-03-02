@@ -3,7 +3,7 @@ const router = Router() // Creamos el objeto de tipo Router
 
 const sqlConnection = require('../database') // Importamos el archivo que hace conexión con la BD
 
-router.get('/', (req, res) => { // Petición GET que mostrara cuando el usuario escriba por URL '/' raíz del directorio
+router.get('/api/', (req, res) => { // Petición GET que mostrara cuando el usuario escriba por URL '/' raíz del directorio
     setTimeout(async () => {
         try { // Por si algun motivo peta
             const result = await sqlConnection.executeQuery('SELECT * FROM dbo.exercises') // Consulta a la BD que mostrara todo el contenido de la tabla "dbo.exercises"
@@ -17,7 +17,7 @@ router.get('/', (req, res) => { // Petición GET que mostrara cuando el usuario 
     })
 })
 
-router.get('/:Exercisesid', (req, res) => { // Petición GET que mostrara cuando el usuario escriba por URL '/' y el numero de id al que pertenece 1 row (muestra solo 1 row en especifico)
+router.get('/api/:Exercisesid', (req, res) => { // Petición GET que mostrara cuando el usuario escriba por URL '/' y el numero de id al que pertenece 1 row (muestra solo 1 row en especifico)
     setTimeout(async () => {
         try { // Por si algun motivo peta
             const { Exercisesid } = req.params // Guarda en la variable (Exercisesid) el numero que escribe el usuario en la URL despues de la raíz '/'
@@ -33,7 +33,7 @@ router.get('/:Exercisesid', (req, res) => { // Petición GET que mostrara cuando
     })
 })
     
-router.post('/', (req, res) => { // Petición POST para guardar la información que el usuario se le pide cuando a traves de la aplicación se haga un llamdo POST al servidor API
+router.post('/api/', (req, res) => { // Petición POST para guardar la información que el usuario se le pide cuando a traves de la aplicación se haga un llamdo POST al servidor API
     setTimeout(async () => {
         try { // Por si algun motivo peta
             /*console.log(Title, Description, Img, LeftColor, RightColor)
@@ -85,7 +85,7 @@ router.post('/', (req, res) => { // Petición POST para guardar la información 
     })
 })
 
-router.put('/:Exercisesid', (req, res) => {
+router.put('/api/:Exercisesid', (req, res) => {
     setTimeout(async () => {
         try {
             const {Title, Description, Img, LeftColor, RightColor} = req.body
@@ -106,7 +106,7 @@ router.put('/:Exercisesid', (req, res) => {
     })
 })
 
-router.delete('/:Exercisesid', (req, res) => {
+router.delete('/api/:Exercisesid', (req, res) => {
     setTimeout(async () => {
         try {
             const {Exercisesid} = req.params
