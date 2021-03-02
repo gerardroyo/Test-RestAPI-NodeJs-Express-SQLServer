@@ -1,6 +1,5 @@
 const { Router } = require('express') // Importacion de Router de express para poder especificar las rutas
 const router = Router() // Creamos el objeto de tipo Router
-const exercises = require('../sample.json')
 
 const sqlConnection = require('../database') // Importamos el archivo que hace conexión con la BD
 
