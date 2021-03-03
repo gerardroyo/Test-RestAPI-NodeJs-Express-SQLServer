@@ -1,6 +1,8 @@
 
 const express = require('express') // Importamos express
+const cors = require('cors');
 const app = express() // Creamos app para trabajar con express
+app.use(cors())
 /*const morgan = require('morgan')*/
 
 // Settings
@@ -8,9 +10,9 @@ app.set('port', process.env.PORT || 5000) //Seleccionas el puerto que utilizara 
 /*app.set('json spaces', 2)*/
 
 // MiddleWares
-/*app.use(morgan('dev'))
+/*app.use(morgan('dev'))*/
 app.use(express.urlencoded({extended: false}))
-app.unsubscribe(express.json())*/
+app.unsubscribe(express.json())
 app.use(express.json()) // Para que la API pueda manejar archivos Json
 
 // Routes

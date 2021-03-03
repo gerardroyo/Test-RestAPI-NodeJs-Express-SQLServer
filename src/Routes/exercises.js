@@ -3,7 +3,7 @@ const router = Router() // Creamos el objeto de tipo Router
 
 const sqlConnection = require('../database') // Importamos el archivo que hace conexión con la BD
 
-router.get('/api/', (req, res) => { // Petición GET que mostrara cuando el usuario escriba por URL '/' raíz del directorio
+router.get('/api', (req, res) => { // Petición GET que mostrara cuando el usuario escriba por URL '/' raíz del directorio
     setTimeout(async () => {
         try { // Por si algun motivo peta
             const result = await sqlConnection.executeQuery('SELECT * FROM dbo.exercises') // Consulta a la BD que mostrara todo el contenido de la tabla "dbo.exercises"
@@ -17,12 +17,12 @@ router.get('/api/', (req, res) => { // Petición GET que mostrara cuando el usua
     })
 })
 
-router.get('/api/:Exercisesid', (req, res) => { // Petición GET que mostrara cuando el usuario escriba por URL '/' y el numero de id al que pertenece 1 row (muestra solo 1 row en especifico)
+router.get('/api/:id', (req, res) => { // Petición GET que mostrara cuando el usuario escriba por URL '/' y el numero de id al que pertenece 1 row (muestra solo 1 row en especifico)
     setTimeout(async () => {
         try { // Por si algun motivo peta
-            const { Exercisesid } = req.params // Guarda en la variable (Exercisesid) el numero que escribe el usuario en la URL despues de la raíz '/'
+            const { id } = req.params // Guarda en la variable (id) el numero que escribe el usuario en la URL despues de la raíz '/'
             const query = `
-            SELECT * FROM dbo.exercises WHERE Exercisesid = ${Exercisesid} 
+            SELECT * FROM dbo.exercises WHERE id = ${id} 
             ` // Consulta que muertra todo lo de la Tabla "dbo.exercises" siempre y cuando la id de este sea la misma que el usuario ha pedido a traves de la URL
             const result = await sqlConnection.executeQuery(query) // Ejecutamos la consulta a la BD
 
@@ -65,9 +65,9 @@ router.post('/api/', (req, res) => { // Petición POST para guardar la informaci
                 type: 'nvarchar',
                 value: RightColor
             }]);*/
-            const {Exercisesid, Title, Description, Img, LeftColor, RightColor} = req.body // Recivimos los datos que el usuario nos proporciona
+            const {id, Title, Description, Img, LeftColor, RightColor} = req.body // Recivimos los datos que el usuario nos proporciona
             const result = await sqlConnection.executeStoredProcedure('exercisesAddOrEdit', null, { // Ejecutamos en este caso una "Procedure" ja creada anteriormente para actualizar lo que ya esta creado o para isnertar algo nuevo
-                _id: Exercisesid,
+                _id: id,
                 _title: Title,
                 _description: Description,
                 _img: Img,
@@ -85,13 +85,13 @@ router.post('/api/', (req, res) => { // Petición POST para guardar la informaci
     })
 })
 
-router.put('/api/:Exercisesid', (req, res) => {
+router.put('/api/:id', (req, res) => {
     setTimeout(async () => {
         try {
             const {Title, Description, Img, LeftColor, RightColor} = req.body
-            const {Exercisesid} = req.params
+            const {id} = req.params
             const result = await sqlConnection.executeStoredProcedure('exercisesAddOrEdit', null, { // Ejecutamos en este caso una "Procedure" ja creada anteriormente para actualizar lo que ya esta creado o para isnertar algo nuevo
-                    _id: Exercisesid,
+                    _id: id,
                     _title: Title,
                     _description: Description,
                     _img: Img,
@@ -106,12 +106,12 @@ router.put('/api/:Exercisesid', (req, res) => {
     })
 })
 
-router.delete('/api/:Exercisesid', (req, res) => {
+router.delete('/api/:id', (req, res) => {
     setTimeout(async () => {
         try {
-            const {Exercisesid} = req.params
+            const {id} = req.params
             const query = `
-            DELETE FROM dbo.exercises WHERE Exercisesid = ${Exercisesid} 
+            DELETE FROM dbo.exercises WHERE id = ${id} 
             `
 
             const result = await sqlConnection.executeQuery(query)

@@ -22,9 +22,9 @@ SET NOCOUNT ON;
             Img = @_img,
             LeftColor = @_leftColor,
             RightColor = @_rightColor
-            WHERE Exercisesid = @_id
+            WHERE id = @_id
     END
 
-    SELECT @_id AS Exercisesid
+    SELECT @_id AS id
 END;
 GO
